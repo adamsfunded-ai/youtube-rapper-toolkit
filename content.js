@@ -256,7 +256,11 @@
     header.className = "loop-header";
     const titleEl = document.createElement("div");
     titleEl.className = "loop-title";
-    titleEl.innerHTML = '<span class="loop-icon">&#x1F501;</span> BEAT LOOPER';
+    const loopIcon = document.createElement("span");
+    loopIcon.className = "loop-icon";
+    loopIcon.textContent = "\uD83D\uDD01";
+    titleEl.appendChild(loopIcon);
+    titleEl.appendChild(document.createTextNode(" BEAT LOOPER"));
     const toggleBtn = document.createElement("button");
     toggleBtn.className = "loop-toggle-btn";
     toggleBtn.id = "loop-toggle-btn";
@@ -439,13 +443,22 @@
     // Hint
     const hint = document.createElement("div");
     hint.className = "loop-hint";
-    hint.innerHTML = "Keyboard: <b>L</b> = toggle loop &nbsp;|&nbsp; <b>[</b> = set start &nbsp;|&nbsp; <b>]</b> = set end &nbsp;|&nbsp; <b>\\</b> = jump to start";
+    function addKey(parent, key) {
+      const b = document.createElement("b");
+      b.textContent = key;
+      parent.appendChild(b);
+    }
+    hint.appendChild(document.createTextNode("Keyboard: "));
+    addKey(hint, "L"); hint.appendChild(document.createTextNode(" = toggle loop  |  "));
+    addKey(hint, "["); hint.appendChild(document.createTextNode(" = set start  |  "));
+    addKey(hint, "]"); hint.appendChild(document.createTextNode(" = set end  |  "));
+    addKey(hint, "\\"); hint.appendChild(document.createTextNode(" = jump to start"));
 
     // Collapse
     const collapseBtn = document.createElement("button");
     collapseBtn.className = "loop-collapse-btn";
     collapseBtn.id = "loop-collapse-btn";
-    collapseBtn.innerHTML = "&#9650; BEAT LOOPER";
+    collapseBtn.textContent = "\u25B2 BEAT LOOPER";
     let collapsed = false;
     const panelBody = document.createElement("div");
     panelBody.className = "loop-panel-body";
@@ -453,7 +466,7 @@
     collapseBtn.addEventListener("click", () => {
       collapsed = !collapsed;
       panelBody.style.display = collapsed ? "none" : "block";
-      collapseBtn.innerHTML = collapsed ? "&#9660; BEAT LOOPER" : "&#9650; BEAT LOOPER";
+      collapseBtn.textContent = collapsed ? "\u25BC BEAT LOOPER" : "\u25B2 BEAT LOOPER";
     });
 
     // Assemble
@@ -873,7 +886,11 @@
     const dlBtn = document.createElement("button");
     dlBtn.id = "yt-mp3-download-btn";
     dlBtn.type = "button";
-    dlBtn.innerHTML = '<span class="dl-icon">&#11015;</span> Download MP3';
+    const dlIcon = document.createElement("span");
+    dlIcon.className = "dl-icon";
+    dlIcon.textContent = "\u2B07";
+    dlBtn.appendChild(dlIcon);
+    dlBtn.appendChild(document.createTextNode(" Download MP3"));
     dlBtn.title = "Download this video as audio — one click, straight to your PC";
 
     // Status text
@@ -898,7 +915,14 @@
         serverLabel.textContent = "Local server";
       } else {
         serverDot.className = "dl-server-dot offline";
-        serverLabel.innerHTML = '<a href="https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature" target="_blank" style="color:inherit;text-decoration:underline dotted;opacity:0.8;" title="Click for setup instructions">Server offline</a>';
+        serverLabel.textContent = "";
+        const offLink = document.createElement("a");
+        offLink.href = "https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature";
+        offLink.target = "_blank";
+        offLink.title = "Click for setup instructions";
+        offLink.textContent = "Server offline";
+        offLink.style.cssText = "color:inherit;text-decoration:underline dotted;opacity:0.8;";
+        serverLabel.appendChild(offLink);
       }
     });
 
@@ -911,7 +935,13 @@
 
       const online = await isServerOnline();
       if (!online) {
-        statusEl.innerHTML = 'Server offline — <a href="https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature" target="_blank" style="color:#ff9500;text-decoration:underline;">Setup instructions</a>';
+        statusEl.textContent = "Server offline \u2014 ";
+        const setupLink = document.createElement("a");
+        setupLink.href = "https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature";
+        setupLink.target = "_blank";
+        setupLink.textContent = "Setup instructions";
+        setupLink.style.cssText = "color:#ff9500;text-decoration:underline;";
+        statusEl.appendChild(setupLink);
         serverDot.className = "dl-server-dot offline";
         serverLabel.textContent = "Server offline";
         return;
