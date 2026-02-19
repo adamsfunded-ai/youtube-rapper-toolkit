@@ -898,7 +898,7 @@
         serverLabel.textContent = "Local server";
       } else {
         serverDot.className = "dl-server-dot offline";
-        serverLabel.textContent = "Server offline";
+        serverLabel.innerHTML = '<a href="https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature" target="_blank" style="color:inherit;text-decoration:underline dotted;opacity:0.8;" title="Click for setup instructions">Server offline</a>';
       }
     });
 
@@ -911,7 +911,7 @@
 
       const online = await isServerOnline();
       if (!online) {
-        statusEl.textContent = "Server offline! It should auto-start on PC boot.";
+        statusEl.innerHTML = 'Server offline — <a href="https://github.com/adamsfunded-ai/youtube-rapper-toolkit#mp3-download-setup-required-for-download-feature" target="_blank" style="color:#ff9500;text-decoration:underline;">Setup instructions</a>';
         serverDot.className = "dl-server-dot offline";
         serverLabel.textContent = "Server offline";
         return;
