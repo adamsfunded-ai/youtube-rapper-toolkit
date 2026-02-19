@@ -2,7 +2,7 @@
   "use strict";
 
   /* ===================================================================
-     YouTube Rapper Toolkit v1.3
+     YouTube Rapper Toolkit v1.4.0
      1. Sort by Recently Added (Watch Later page)
      2. Beat Looper — persistent loop state, never resets your in-point
      3. One-click MP3 download via local server (no third-party sites)
